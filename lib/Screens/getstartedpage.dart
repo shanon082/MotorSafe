@@ -1,60 +1,80 @@
 import 'package:flutter/material.dart';
-import 'package:motor_boda/Screens/HomePage.dart';
+import 'package:motor_boda/Screens/auth_screens.dart'; // Import auth_screens.dart
 
-class Getstartedpage extends StatelessWidget {
-  const Getstartedpage({super.key});
+class GetStartedPage extends StatelessWidget {
+  const GetStartedPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Center(
-              child: Container(
-                height: MediaQuery.of(context).size.height * 0.6,
-                alignment: Alignment.center,
+      body: SafeArea(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                height: MediaQuery.of(context).size.height * 0.5,
                 width: MediaQuery.of(context).size.width * 0.8,
-                margin: const EdgeInsets.all(16.0),
                 decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: NetworkImage('https://images.unsplash.com/photo-1668797423269-4b29bd89066c?w=700&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8Ym9kYSUyMHJpZGVyfGVufDB8fDB8fHww'), // Replace with your image URL
-                    fit: BoxFit.cover,                    
-                  ),
                   borderRadius: BorderRadius.circular(20),
+                  color: Colors.grey[200], // Fallback background color
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+                  child: Image.network(
+                    'https://images.unsplash.com/photo-1668797423269-4b29bd89066c?w=700&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8Ym9kYSUyMHJpZGVyfGVufDB8fDB8fHww',
+                    fit: BoxFit.cover,
+                    loadingBuilder: (context, child, loadingProgress) {
+                      if (loadingProgress == null) return child;
+                      return const Center(child: CircularProgressIndicator());
+                    },
+                    errorBuilder: (context, error, stackTrace) {
+                      return const Center(
+                        child: Icon(Icons.error, color: Colors.red, size: 50),
+                      );
+                    },
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(height: 30),
-            Center(
-              child: Text(
+              const SizedBox(height: 30),
+              const Text(
                 'Explore the World of Motor Boda',
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
                   color: Colors.blue,
                 ),
+                textAlign: TextAlign.center,
               ),
-            ),
-            const SizedBox(height: 10),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blue,
-                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
+              const SizedBox(height: 5),
+              const Text(
+                'Safe and reliable rides with experienced riders',
+                style: TextStyle(fontSize: 16, color: Colors.blueGrey),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 18),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blue,
+                  padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  minimumSize: const Size(200, 50),
+                ),
+                onPressed: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => const RegisterPage()),
+                  );
+                },
+                child: const Text(
+                  'Get Started',
+                  style: TextStyle(fontSize: 18, color: Colors.white),
                 ),
               ),
-              onPressed: () {
-               Navigator.pushReplacement(
-                 context,
-                 MaterialPageRoute(builder: (context) => const HomePage()),
-               );
-              },
-              child: const Text('Get Started...', style: TextStyle(fontSize: 18, color: Colors.white),),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

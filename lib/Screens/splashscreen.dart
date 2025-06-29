@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 
-import 'package:motor_boda/Screens/GetStartedPage.dart';
+import 'package:motor_boda/Screens/getstartedpage.dart';
 
 class Splashscreen extends StatefulWidget {
   const Splashscreen({super.key});
@@ -18,7 +18,7 @@ class _SplashscreenState extends State<Splashscreen> {
     Timer(
       Duration(seconds: 3),
       () => Navigator.pushReplacement(context, MaterialPageRoute(
-        builder: (context) => const Getstartedpage(),
+        builder: (context) => const GetStartedPage(),
       )),
     );
   }
