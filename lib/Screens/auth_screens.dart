@@ -52,7 +52,6 @@ class _RegisterPageState extends State<RegisterPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Header with logo and welcome text
                 Center(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
