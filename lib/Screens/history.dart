@@ -5,6 +5,15 @@ class History extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('History'),
+        backgroundColor: const Color(0xFF2563EB), 
+        foregroundColor: Colors.white,
+      ),
+      body: Center(
+        child: Text('History page'),
+      ),
+    );
   }
 }

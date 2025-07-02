@@ -21,7 +21,7 @@ class _LocationPageState extends State<LocationPage> {
   Set<Marker> _markers = {};
   bool _isLoading = true;
 
-  static const String _apiKey = 'AIzaSyA09TXaUxZHaVX2Nx9Dj4IZGK_1Ao7gk20'; // Replace with your Google Maps API key
+  static const String _apiKey = 'AIzaSyA09TXaUxZHaVX2Nx9Dj4IZGK_1Ao7gk20';
 
   @override
   void initState() {
@@ -109,7 +109,7 @@ class _LocationPageState extends State<LocationPage> {
               Polyline(
                 polylineId: const PolylineId('route'),
                 points: polylineCoordinates,
-                color: const Color(0xFF2563EB), // Using your app's primary color
+                color: const Color(0xFF2563EB),
                 width: 5,
               ),
             );
@@ -202,7 +202,7 @@ class _LocationPageState extends State<LocationPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Location & Directions'),
-        backgroundColor: const Color(0xFF2563EB), // Matching your app's theme
+        backgroundColor: const Color(0xFF2563EB), 
         foregroundColor: Colors.white,
       ),
       body: _isLoading

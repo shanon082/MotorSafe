@@ -9,7 +9,7 @@ class Homepage extends StatefulWidget {
 
 class _HomepageState extends State<Homepage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  String userName = "John Doe";
+  String userName = "Thomas.M.A";
   double walletBalance = 1000.00;
   List<Map<String, dynamic>> recentActivities = [
     {
@@ -263,7 +263,7 @@ class _HomepageState extends State<Homepage> {
     );
   }
 
-  // Navigation Drawer (from previous implementation)
+  // Navigation Drawer 
   Widget _buildNavigationDrawer() {
     return Drawer(
       child: ListView(
@@ -277,7 +277,7 @@ class _HomepageState extends State<Homepage> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            accountEmail: Text('user@example.com'),
+            accountEmail: Text('user@motorboda.com'),
             currentAccountPicture: CircleAvatar(
               backgroundColor: Colors.grey[200],
               child: const Icon(Icons.person, size: 40),

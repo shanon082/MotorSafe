@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:motor_boda/Screens/Contact/contact.dart';
 import 'package:motor_boda/Screens/HomePage.dart';
-import 'package:motor_boda/Screens/Myaccount/myaccount.dart';
+import 'package:motor_boda/Screens/Myaccount/my_account_page.dart';
 import 'package:motor_boda/Screens/history.dart';
 import 'package:motor_boda/Screens/location_page.dart';
-import 'package:motor_boda/Screens/splashscreen.dart';
+// import 'package:motor_boda/Screens/splashscreen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => const Homepage(),
         '/location': (context) => const LocationPage(),
-        '/account': (context) => const Myaccount(),
+        '/account': (context) => const MyAccountPage(),
         '/history': (context) => const History(),
         '/contact': (context) => const Contact(),
       }
