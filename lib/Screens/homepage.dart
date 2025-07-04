@@ -166,7 +166,7 @@ class _HomepageState extends State<Homepage> {
                   ),
                   side: const BorderSide(color: Color(0xFF2563EB)),
                 ),
-                onPressed: () => _navigateTo('/wallet'),
+                onPressed: () => _navigateTo('/account'),
                 child: const Text(
                   'View Wallet',
                   style: TextStyle(color: Color(0xFF2563EB)),
