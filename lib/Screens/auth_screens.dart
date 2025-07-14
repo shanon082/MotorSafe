@@ -25,21 +25,24 @@ class _RegisterPageState extends State<RegisterPage> {
     super.dispose();
   }
 
-  Future<void> _register() async {
-    if (_formKey.currentState!.validate()) {
-      setState(() => _isLoading = true);
-      await Future.delayed(const Duration(seconds: 1));
-      setState(() => _isLoading = false);
-      
-      if (!mounted) return;
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => OTPVerificationPage(phone: _phoneController.text),
+Future<void> _register() async {
+  if (_formKey.currentState!.validate()) {
+    setState(() => _isLoading = true);
+    await Future.delayed(const Duration(seconds: 1));
+    setState(() => _isLoading = false);
+    
+    if (!mounted) return;
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => OTPVerificationPage(
+          phone: _phoneController.text,
+          isRider: _userType == 'Rider',
         ),
-      );
-    }
+      ),
+    );
   }
+}
 
   @override
   Widget build(BuildContext context) {
@@ -238,7 +241,12 @@ class _RegisterPageState extends State<RegisterPage> {
 
 class OTPVerificationPage extends StatefulWidget {
   final String phone;
-  const OTPVerificationPage({super.key, required this.phone});
+  final bool isRider;
+  const OTPVerificationPage({
+    super.key, 
+    required this.phone,
+    this.isRider = false,
+  });
 
   @override
   _OTPVerificationPageState createState() => _OTPVerificationPageState();
@@ -254,18 +262,19 @@ class _OTPVerificationPageState extends State<OTPVerificationPage> {
     super.dispose();
   }
 
-  Future<void> _verifyOTP() async {
-    if (_otpController.text.length == 6) {
-      setState(() => _isLoading = true);
-      await Future.delayed(const Duration(seconds: 1)); // Simulate verification
-      setState(() => _isLoading = false);
-      
-      if (!mounted) return;
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const Successpage()),
-      );
-    } else {
+Future<void> _verifyOTP() async {
+  if (_otpController.text.length == 6) {
+    setState(() => _isLoading = true);
+    await Future.delayed(const Duration(seconds: 1));
+    setState(() => _isLoading = false);
+    
+    if (!mounted) return;
+    Navigator.pushReplacementNamed(
+      context,
+      '/home',
+      arguments: widget.isRider,
+    );
+  }  else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: const Text('Please enter a valid 6-digit OTP'),
@@ -408,16 +417,22 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Future<void> _login() async {
-    setState(() => _isLoading = true);
-    await Future.delayed(const Duration(seconds: 1)); // Simulate login
-    setState(() => _isLoading = false);
-    
-    if (!mounted) return;
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => const Homepage()),
-    );
-  }
+  Future<void> _login() async {
+  setState(() => _isLoading = true);
+  await Future.delayed(const Duration(seconds: 1)); // Simulate login
+  
+  if (!mounted) return;
+  setState(() => _isLoading = false);
+  
+  // In a real app, you would get this from your authentication response
+  final isRider = _phoneController.text.startsWith('+2567'); // Example logic
+  
+  Navigator.pushReplacementNamed(
+    context,
+    '/home',
+    arguments: isRider,
+  );
+}
 
   @override
   Widget build(BuildContext context) {

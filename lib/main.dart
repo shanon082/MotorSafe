@@ -4,8 +4,9 @@ import 'package:motor_boda/Screens/HomePage.dart';
 import 'package:motor_boda/Screens/Myaccount/my_account_page.dart';
 import 'package:motor_boda/Screens/history.dart';
 import 'package:motor_boda/Screens/location_page.dart';
-// import 'package:motor_boda/Screens/splashscreen.dart';
-// import 'package:motor_boda/Screens/splashscreen.dart';
+import 'package:motor_boda/Screens/rider/rider_homepage.dart';
+import 'package:motor_boda/Screens/auth_screens.dart';
+import 'package:motor_boda/Screens/getstartedpage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,6 +14,7 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -22,16 +24,19 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
       ),
-      // home:  Splashscreen(),
       initialRoute: '/',
       routes: {
-        '/': (context) => const Homepage(),
+        '/': (context) => const GetStartedPage(),
+        '/home': (context) {
+          // In a real app, you would check user type from your auth state
+          final isRider = ModalRoute.of(context)!.settings.arguments as bool? ?? false;
+          return isRider ? const RiderHomepage() : const Homepage();
+        },
         '/location': (context) => const LocationPage(),
         '/account': (context) => const MyAccountPage(),
         '/history': (context) => HistoryPage(),
         '/contact': (context) => const ContactPage(),
-      }
-      
-      );
+      },
+    );
   }
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:motor_boda/Screens/auth_screens.dart'; // Import auth_screens.dart
+import 'package:motor_boda/Screens/auth_screens.dart';
 
 class GetStartedPage extends StatelessWidget {
   const GetStartedPage({super.key});
@@ -17,7 +17,7 @@ class GetStartedPage extends StatelessWidget {
                 width: MediaQuery.of(context).size.width * 0.8,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
-                  color: Colors.grey[200], // Fallback background color
+                  color: Colors.grey[200],
                 ),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(20),
@@ -38,7 +38,7 @@ class GetStartedPage extends StatelessWidget {
               ),
               const SizedBox(height: 30),
               const Text(
-                'Explore the World of Motor Boda',
+                'Welcome to Motor Boda',
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
@@ -53,25 +53,45 @@ class GetStartedPage extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 18),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue,
-                  padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    width: 200,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blue,
+                        padding: const EdgeInsets.symmetric(vertical: 15),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const RegisterPage()),
+                        );
+                      },
+                      child: const Text(
+                        'Register',
+                        style: TextStyle(fontSize: 18, color: Colors.white),
+                      ),
+                    ),
                   ),
-                  minimumSize: const Size(200, 50),
-                ),
-                onPressed: () {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => const RegisterPage()),
-                  );
-                },
-                child: const Text(
-                  'Get Started',
-                  style: TextStyle(fontSize: 18, color: Colors.white),
-                ),
+                  const SizedBox(height: 12),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const LoginPage()),
+                      );
+                    },
+                    child: const Text(
+                      'Already have an account? Login',
+                      style: TextStyle(color: Colors.blue),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
