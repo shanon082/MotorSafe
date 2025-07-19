@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:motor_boda/Screens/Contact/contact.dart';
 import 'package:motor_boda/Screens/HomePage.dart';
 import 'package:motor_boda/Screens/Myaccount/my_account_page.dart';
@@ -9,7 +10,9 @@ import 'package:motor_boda/Screens/rider/rider_homepage.dart';
 import 'package:motor_boda/Screens/getstartedpage.dart';
 import 'package:motor_boda/Screens/successpage.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 

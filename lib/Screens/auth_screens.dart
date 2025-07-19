@@ -1,6 +1,109 @@
 import 'package:flutter/material.dart';
-import 'package:motor_boda/Screens/HomePage.dart';
-import 'package:motor_boda/Screens/successpage.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+class AuthScreen extends StatefulWidget {
+  const AuthScreen({Key? key}) : super(key: key);
+
+  @override
+  State<AuthScreen> createState() => _AuthScreenState();
+}
+
+class _AuthScreenState extends State<AuthScreen> {
+  final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _otpController = TextEditingController();
+  String? _verificationId;
+  bool _otpSent = false;
+  String _status = '';
+
+  Future<void> _sendOTP() async {
+    setState(() {
+      _status = 'Sending OTP...';
+    });
+    await FirebaseAuth.instance.verifyPhoneNumber(
+      phoneNumber: _phoneController.text.trim(),
+      verificationCompleted: (PhoneAuthCredential credential) async {
+        await FirebaseAuth.instance.signInWithCredential(credential);
+        setState(() {
+          _status = 'Phone number automatically verified!';
+        });
+      },
+      verificationFailed: (FirebaseAuthException e) {
+        setState(() {
+          _status = 'Verification failed: ${e.message}';
+        });
+      },
+      codeSent: (String verificationId, int? resendToken) {
+        setState(() {
+          _verificationId = verificationId;
+          _otpSent = true;
+          _status = 'OTP sent!';
+        });
+      },
+      codeAutoRetrievalTimeout: (String verificationId) {
+        _verificationId = verificationId;
+      },
+    );
+  }
+
+  Future<void> _verifyOTP() async {
+    if (_verificationId == null) return;
+    setState(() {
+      _status = 'Verifying OTP...';
+    });
+    try {
+      final credential = PhoneAuthProvider.credential(
+        verificationId: _verificationId!,
+        smsCode: _otpController.text.trim(),
+      );
+      await FirebaseAuth.instance.signInWithCredential(credential);
+      setState(() {
+        _status = 'Phone number verified & logged in!';
+      });
+    } catch (e) {
+      setState(() {
+        _status = 'OTP verification failed.';
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Phone Auth')),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            TextField(
+              controller: _phoneController,
+              decoration: const InputDecoration(
+                labelText: 'Phone Number',
+                hintText: '+1234567890',
+              ),
+              keyboardType: TextInputType.phone,
+            ),
+            if (_otpSent)
+              TextField(
+                controller: _otpController,
+                decoration: const InputDecoration(
+                  labelText: 'OTP',
+                ),
+                keyboardType: TextInputType.number,
+              ),
+            const SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: _otpSent ? _verifyOTP : _sendOTP,
+              child: Text(_otpSent ? 'Verify OTP' : 'Send OTP'),
+            ),
+            const SizedBox(height: 16),
+            Text(_status),
+          ],
+        ),
+      ),
+    );
+  }
+}
+// Removed unused imports and moved all imports to the top
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
