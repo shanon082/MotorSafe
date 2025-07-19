@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "146185538933",
+    "project_id": "motor-boda-b8fd3",
+    "storage_bucket": "motor-boda-b8fd3.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:146185538933:android:665a8cfc5242f7cb50d73c",
+        "android_client_info": {
+          "package_name": "com.example.motor_boda"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAviwmIA5YSZmtzfjC_65WYlh60ZIP8-qw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

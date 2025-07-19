@@ -25,24 +25,24 @@ class _RegisterPageState extends State<RegisterPage> {
     super.dispose();
   }
 
-Future<void> _register() async {
-  if (_formKey.currentState!.validate()) {
-    setState(() => _isLoading = true);
-    await Future.delayed(const Duration(seconds: 1));
-    setState(() => _isLoading = false);
-    
-    if (!mounted) return;
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => OTPVerificationPage(
-          phone: _phoneController.text,
-          isRider: _userType == 'Rider',
+  Future<void> _register() async {
+    if (_formKey.currentState!.validate()) {
+      setState(() => _isLoading = true);
+      await Future.delayed(const Duration(seconds: 1));
+      setState(() => _isLoading = false);
+
+      if (!mounted) return;
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => OTPVerificationPage(
+            phone: _phoneController.text,
+            isRider: _userType == 'Rider',
+          ),
         ),
-      ),
-    );
+      );
+    }
   }
-}
 
   @override
   Widget build(BuildContext context) {
@@ -60,13 +60,16 @@ Future<void> _register() async {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Image.asset(
-                        'assets/logo.png', 
+                        'assets/logo.png',
                         height: 48,
                       ),
                       const SizedBox(height: 24),
                       Text(
                         'Create your account',
-                        style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                        style: Theme.of(context)
+                            .textTheme
+                            .headlineMedium
+                            ?.copyWith(
                               fontWeight: FontWeight.bold,
                               color: Colors.black87,
                             ),
@@ -82,7 +85,7 @@ Future<void> _register() async {
                   ),
                 ),
                 const SizedBox(height: 32),
-                
+
                 // Registration Form
                 Form(
                   key: _formKey,
@@ -105,7 +108,7 @@ Future<void> _register() async {
                             value!.isEmpty ? 'Please enter your name' : null,
                       ),
                       const SizedBox(height: 16),
-                      
+
                       // Phone Field
                       TextFormField(
                         controller: _phoneController,
@@ -120,11 +123,12 @@ Future<void> _register() async {
                           fillColor: Colors.grey[50],
                         ),
                         keyboardType: TextInputType.phone,
-                        validator: (value) =>
-                            value!.isEmpty ? 'Please enter your phone number' : null,
+                        validator: (value) => value!.isEmpty
+                            ? 'Please enter your phone number'
+                            : null,
                       ),
                       const SizedBox(height: 16),
-                      
+
                       // Residence Field
                       TextFormField(
                         controller: _residenceController,
@@ -138,11 +142,12 @@ Future<void> _register() async {
                           filled: true,
                           fillColor: Colors.grey[50],
                         ),
-                        validator: (value) =>
-                            value!.isEmpty ? 'Please enter your residence' : null,
+                        validator: (value) => value!.isEmpty
+                            ? 'Please enter your residence'
+                            : null,
                       ),
                       const SizedBox(height: 16),
-                      
+
                       // User Type Dropdown
                       DropdownButtonFormField<String>(
                         value: _userType,
@@ -171,7 +176,7 @@ Future<void> _register() async {
                   ),
                 ),
                 const SizedBox(height: 32),
-                
+
                 // Register Button
                 SizedBox(
                   width: double.infinity,
@@ -202,14 +207,15 @@ Future<void> _register() async {
                   ),
                 ),
                 const SizedBox(height: 24),
-                
+
                 // Login Redirect
                 Center(
                   child: TextButton(
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const LoginPage()),
+                        MaterialPageRoute(
+                            builder: (context) => const LoginPage()),
                       );
                     },
                     child: RichText(
@@ -238,12 +244,11 @@ Future<void> _register() async {
   }
 }
 
-
 class OTPVerificationPage extends StatefulWidget {
   final String phone;
   final bool isRider;
   const OTPVerificationPage({
-    super.key, 
+    super.key,
     required this.phone,
     this.isRider = false,
   });
@@ -262,19 +267,19 @@ class _OTPVerificationPageState extends State<OTPVerificationPage> {
     super.dispose();
   }
 
-Future<void> _verifyOTP() async {
-  if (_otpController.text.length == 6) {
-    setState(() => _isLoading = true);
-    await Future.delayed(const Duration(seconds: 1));
-    setState(() => _isLoading = false);
-    
-    if (!mounted) return;
-    Navigator.pushReplacementNamed(
-      context,
-      '/home',
-      arguments: widget.isRider,
-    );
-  }  else {
+  Future<void> _verifyOTP() async {
+    if (_otpController.text.length == 6) {
+      setState(() => _isLoading = true);
+      await Future.delayed(const Duration(seconds: 1));
+      setState(() => _isLoading = false);
+
+      if (!mounted) return;
+      Navigator.pushReplacementNamed(
+        context,
+        '/home',
+        arguments: widget.isRider,
+      );
+    } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: const Text('Please enter a valid 6-digit OTP'),
@@ -320,7 +325,7 @@ Future<void> _verifyOTP() async {
                   style: TextStyle(color: Colors.grey[600]),
                 ),
                 const SizedBox(height: 32),
-                
+
                 // OTP Field
                 TextField(
                   controller: _otpController,
@@ -342,7 +347,7 @@ Future<void> _verifyOTP() async {
                   ),
                 ),
                 const SizedBox(height: 16),
-                
+
                 // Resend Code
                 Align(
                   alignment: Alignment.centerRight,
@@ -357,7 +362,7 @@ Future<void> _verifyOTP() async {
                   ),
                 ),
                 const SizedBox(height: 24),
-                
+
                 // Verify Button
                 SizedBox(
                   width: double.infinity,
@@ -417,22 +422,21 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Future<void> _login() async {
-  Future<void> _login() async {
-  setState(() => _isLoading = true);
-  await Future.delayed(const Duration(seconds: 1)); // Simulate login
-  
-  if (!mounted) return;
-  setState(() => _isLoading = false);
-  
-  // In a real app, you would get this from your authentication response
-  final isRider = _phoneController.text.startsWith('+2567'); // Example logic
-  
-  Navigator.pushReplacementNamed(
-    context,
-    '/home',
-    arguments: isRider,
-  );
-}
+    setState(() => _isLoading = true);
+    await Future.delayed(const Duration(seconds: 1)); // Simulate login
+
+    if (!mounted) return;
+    setState(() => _isLoading = false);
+
+    // In a real app, you would get this from your authentication response
+    final isRider = _phoneController.text.startsWith('+2567'); // Example logic
+
+    Navigator.pushReplacementNamed(
+      context,
+      '/home',
+      arguments: isRider,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -456,10 +460,11 @@ class _LoginPageState extends State<LoginPage> {
                     const SizedBox(height: 24),
                     Text(
                       'Welcome back',
-                      style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black87,
-                          ),
+                      style:
+                          Theme.of(context).textTheme.headlineMedium?.copyWith(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black87,
+                              ),
                     ),
                     const SizedBox(height: 8),
                     Text(
@@ -471,7 +476,7 @@ class _LoginPageState extends State<LoginPage> {
                   ],
                 ),
                 const SizedBox(height: 32),
-                
+
                 // Login Form
                 Column(
                   children: [
@@ -491,7 +496,7 @@ class _LoginPageState extends State<LoginPage> {
                       keyboardType: TextInputType.phone,
                     ),
                     const SizedBox(height: 16),
-                    
+
                     // Password Field
                     TextField(
                       controller: _passwordController,
@@ -520,7 +525,7 @@ class _LoginPageState extends State<LoginPage> {
                       obscureText: _obscurePassword,
                     ),
                     const SizedBox(height: 8),
-                    
+
                     // Forgot Password
                     Align(
                       alignment: Alignment.centerRight,
@@ -535,7 +540,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                     const SizedBox(height: 24),
-                    
+
                     // Login Button
                     SizedBox(
                       width: double.infinity,
@@ -568,14 +573,15 @@ class _LoginPageState extends State<LoginPage> {
                   ],
                 ),
                 const SizedBox(height: 24),
-                
+
                 // Register Redirect
                 Center(
                   child: TextButton(
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const RegisterPage()),
+                        MaterialPageRoute(
+                            builder: (context) => const RegisterPage()),
                       );
                     },
                     child: RichText(

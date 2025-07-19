@@ -1,4 +1,5 @@
 {
-    "cmake.sourceDirectory": "C:/Users/SIMONS/Desktop/important/safeboda/motor_boda/windows/flutter",
-    "java.configuration.updateBuildConfiguration": "disabled"
+    "cmake.sourceDirectory": "C:/Users/SHANONS/Desktop/motor_boda/windows/flutter",
+    "java.configuration.updateBuildConfiguration": "disabled",
+    "dart.flutterSdkPath": "~/Desktop/work/flutter"
 }

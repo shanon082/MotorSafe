@@ -85,7 +85,7 @@ class ContactPage extends StatelessWidget {
             const ListTile(
               leading: Icon(Icons.location_on, color: Color(0xFF2563EB)),
               title: Text('Main Office'),
-              subtitle: Text('123 Boda Street, Kampala, Uganda'),
+              subtitle: Text('Abby Apartments, Soroti, Uganda'),
             ),
             const ListTile(
               leading: Icon(Icons.access_time, color: Color(0xFF2563EB)),
